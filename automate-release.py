@@ -7,6 +7,7 @@ Pre-requisites: Rust (cargo) and Inno Setup 6 (iscc.exe), e.g.
     winget install JRSoftware.InnoSetup
 """
 
+import hashlib
 import os
 import re
 import shutil
@@ -57,9 +58,11 @@ def main() -> None:
 
     run(iscc, '/Q', f'/DMyAppVersion={version}', str(ROOT / 'dist' / 'turbo-delete.iss'))
 
+    # InstallerSha256 of the winget manifest needs the hash of the installer
     print(f'Built Turbo Delete {version}:')
     for path in (ROOT / 'bin' / EXE, ROOT / 'dist' / 'Turbo-Delete-Install.exe'):
-        print(f'  {path.relative_to(ROOT)} ({path.stat().st_size / 1024 / 1024:.1f} MB)')
+        sha256 = hashlib.sha256(path.read_bytes()).hexdigest().upper()
+        print(f'  {path.relative_to(ROOT)} ({path.stat().st_size / 1024 / 1024:.1f} MB, SHA256 {sha256})')
 
 
 if __name__ == '__main__':
