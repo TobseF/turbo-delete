@@ -7,11 +7,12 @@
 
 #define MyAppName "Turbo Delete"
 #ifndef MyAppVersion
-  #define MyAppVersion "0.2.0"
+  #define MyAppVersion "1.0.0"
 #endif
-#define MyAppPublisher "XtremeDevX"
-#define MyAppURL "https://github.com/suptejas/turbo-delete"
+#define MyAppPublisher "Tobse"
+#define MyAppURL "https://github.com/TobseF/turbo-delete"
 #define MyAppExeName "turbo-delete.exe"
+#define MyAppIconName "turbo-delete.ico"
 
 [Setup]
 ; NOTE: The value of AppId uniquely identifies this application.
@@ -23,7 +24,8 @@ AppVersion={#MyAppVersion}
 AppVerName={#MyAppName} {#MyAppVersion}
 AppPublisher={#MyAppPublisher}
 AppPublisherURL={#MyAppURL}
-AppSupportURL={#MyAppURL}
+AppSupportURL={#MyAppURL}/issues
+AppUpdatesURL={#MyAppURL}/releases
 DefaultDirName={autopf}\{#MyAppName}
 DisableProgramGroupPage=yes
 PrivilegesRequired=lowest
@@ -31,7 +33,8 @@ LicenseFile=..\LICENSE.txt
 OutputDir=.
 OutputBaseFilename=Turbo-Delete-Install
 UninstallDisplayName={#MyAppName}
-UninstallDisplayIcon={app}\{#MyAppExeName}
+UninstallDisplayIcon={app}\{#MyAppIconName}
+SetupIconFile=..\assets\{#MyAppIconName}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -60,16 +63,17 @@ Name: "path"; Description: "{cm:TaskPath}"
 
 [Files]
 Source: "..\bin\{#MyAppExeName}"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\assets\{#MyAppIconName}"; DestDir: "{app}"; Flags: ignoreversion
 
 [Registry]
 ; --confirm merges the processes Explorer starts for a multi-selection into one confirmation,
 ; MultiSelectModel=Player keeps the entry visible when more than 15 items are selected
 Root: HKCU; Subkey: "Software\Classes\Directory\shell\TurboDelete"; ValueType: string; ValueName: ""; ValueData: "{cm:ContextMenuLabel}"; Flags: uninsdeletekey; Tasks: contextmenu
-Root: HKCU; Subkey: "Software\Classes\Directory\shell\TurboDelete"; ValueType: string; ValueName: "Icon"; ValueData: "shell32.dll,31"; Tasks: contextmenu
+Root: HKCU; Subkey: "Software\Classes\Directory\shell\TurboDelete"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppIconName}"; Tasks: contextmenu
 Root: HKCU; Subkey: "Software\Classes\Directory\shell\TurboDelete"; ValueType: string; ValueName: "MultiSelectModel"; ValueData: "Player"; Tasks: contextmenu
 Root: HKCU; Subkey: "Software\Classes\Directory\shell\TurboDelete\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" --confirm ""%1"""; Tasks: contextmenu
 Root: HKCU; Subkey: "Software\Classes\*\shell\TurboDelete"; ValueType: string; ValueName: ""; ValueData: "{cm:ContextMenuLabel}"; Flags: uninsdeletekey; Tasks: contextmenu
-Root: HKCU; Subkey: "Software\Classes\*\shell\TurboDelete"; ValueType: string; ValueName: "Icon"; ValueData: "shell32.dll,31"; Tasks: contextmenu
+Root: HKCU; Subkey: "Software\Classes\*\shell\TurboDelete"; ValueType: string; ValueName: "Icon"; ValueData: "{app}\{#MyAppIconName}"; Tasks: contextmenu
 Root: HKCU; Subkey: "Software\Classes\*\shell\TurboDelete"; ValueType: string; ValueName: "MultiSelectModel"; ValueData: "Player"; Tasks: contextmenu
 Root: HKCU; Subkey: "Software\Classes\*\shell\TurboDelete\command"; ValueType: string; ValueName: ""; ValueData: """{app}\{#MyAppExeName}"" --confirm ""%1"""; Tasks: contextmenu
 
